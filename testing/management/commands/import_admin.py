@@ -8,13 +8,14 @@ class Command(BaseCommand):
     
     def handle(self, *args, **kwargs):
         UserModel = get_user_model()
-        username = config('DJANGO_ADMIN_USERNAME', default='admin')
+        name = config('DJANGO_ADMIN_NAME', default='John')
+        surname = config('DJANGO_ADMIN_SURNAME', default='Doe')
         email = config('DJANGO_ADMIN_USER_MAIL', default='admin@admin.com')
         password = config('DJANGO_ADMIN_USER_PASWORD', default='admin')
         
         try:
-            if not UserModel.objects.filter(username=username).exists():
-                user = UserModel.objects.create_superuser(username=username, email=email, password=password)
+            if not UserModel.objects.filter(email=email).exists():
+                user = UserModel.objects.create_superuser(name=name, surname=surname, email=email,  password=password)
                 user.is_active = True
                 user.is_staff = True
                 user.save()
