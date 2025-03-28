@@ -24,11 +24,13 @@ THIRD_PARTY_APPS = [
     "rest_framework_simplejwt",
     "corsheaders",
     "django_celery_results",
+    "drf_spectacular"
 ]
 
 PROJECT_APPS = [
     "account",
     "authentication",
+    "app",
     "testing",
 ]
 
@@ -131,6 +133,14 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer', 
     ),
+}
+
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Nudity Detection DRF',
+    'DESCRIPTION': 'A Django REST Framework (DRF) API for nude detection in images, using Celery, Redis, and NudeNet.',
+    'VERSION': '0.2.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
 
 SIMPLE_JWT = {

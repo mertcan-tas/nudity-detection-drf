@@ -1,2 +1,2 @@
-from .email import (RegisterEmailView,)
-from .password import (PasswordChangeView,)
+from .email import LoginAPIView, RegisterAPIView
+from .password import PasswordChangeView
