@@ -1,5 +1,5 @@
 from celery import shared_task
-from app.models import NudityDetection
+from .models import Detection, DetectionResult
 from django.contrib.auth import get_user_model
 from decouple import config
 from nudenet import NudeDetector
@@ -9,8 +9,12 @@ import numpy as np
 
 
 @shared_task
-def detect_nudity(image_path: str, user_id: int, original_url: str):
+def detect_nudity(image_path: str, detection_id: int):
     try:
+        detection = Detection.objects.get(id=detection_id)
+        detection.status = 'processing'
+        detection.save()
+
         # Read the image using OpenCV
         image = cv2.imread(image_path)
         if image is None:
@@ -21,15 +25,9 @@ def detect_nudity(image_path: str, user_id: int, original_url: str):
         
         # Perform detection
         result = detector.detect(image_path)
-
-        NUDITY_THRESHOLD=config('NUDITY_THRESHOLD') 
-
-        is_nude = False
         
         # Clean up the temporary file
         os.unlink(image_path)
-        
-        user = get_user_model().objects.get(id=user_id)
         
         # Calculate score from result
         if result:
@@ -37,11 +35,15 @@ def detect_nudity(image_path: str, user_id: int, original_url: str):
         else:
             score = 0.0
             
-        # Save the result
-        NudityDetection.objects.create(
-            user=user,
-            score=score
+        # Create the result
+        DetectionResult.objects.create(
+            detection=detection,
+            score=score,
+            raw_result=result
         )
+        
+        detection.status = 'completed'
+        detection.save()
         
         return {
             "success": True,
@@ -49,6 +51,11 @@ def detect_nudity(image_path: str, user_id: int, original_url: str):
         }
     
     except Exception as e:
+        # Update detection status to failed
+        if 'detection' in locals():
+            detection.status = 'failed'
+            detection.save()
+            
         # Clean up the temporary file in case of error
         if os.path.exists(image_path):
             os.unlink(image_path)
