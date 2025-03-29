@@ -1,6 +1,7 @@
 from pathlib import Path
 from decouple import config, Csv
 from datetime import timedelta
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -204,5 +205,8 @@ STATIC_URL = "static/"
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+TEMP_DIR = os.path.join(BASE_DIR, 'shared_temp')
+os.makedirs(TEMP_DIR, exist_ok=True)
+
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
