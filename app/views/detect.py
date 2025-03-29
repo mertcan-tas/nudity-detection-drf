@@ -1,28 +1,20 @@
-from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
 from drf_spectacular.utils import extend_schema
-from django.utils import timezone
-from datetime import timedelta
+from rest_framework.permissions import IsAuthenticated
 
 import requests
 import tempfile
 import os
 import imghdr
 
-from .models import Detection, DetectionResult
-from .tasks import detect_nudity
-from .serializers import DetectionSerializer
-from .permissions import IsOwner
-
-
-
+from app.models import Detection
+from app.tasks import detect_nudity
 
 class NudityDetectionView(APIView):
     permission_classes = [IsAuthenticated]
-
+    
     @extend_schema(
         tags=['Detection'],
         methods=["POST"],
@@ -87,33 +79,3 @@ class NudityDetectionView(APIView):
                 {"error": str(e)},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
-
-
-class DetectionResultsListView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    @extend_schema(
-        tags=['Detection'],
-        methods=["GET"],
-        description='List all detections for the current user',
-        responses={200: DetectionSerializer(many=True)},
-    )
-    def get(self, request):
-        detections = Detection.objects.filter(user=request.user)
-        serializer = DetectionSerializer(detections, many=True)
-        return Response(serializer.data)
-
-
-class DetectionResultDetailView(APIView):
-    permission_classes = [IsAuthenticated, IsOwner]
-
-    @extend_schema(
-        tags=['Detection'],
-        methods=["GET"],
-        description='Get details of a specific detection',
-        responses={200: DetectionSerializer()},
-    )
-    def get(self, request, pk):
-        detection = get_object_or_404(Detection, pk=pk, user=request.user)
-        serializer = DetectionSerializer(detection)
-        return Response(serializer.data)

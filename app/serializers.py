@@ -1,12 +1,11 @@
 from rest_framework import serializers
-from .models import Detection, DetectionResult
+from app.models import Detection, DetectionResult
 from django.contrib.auth import get_user_model
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ('id', 'username', 'email')
-
+        fields = ('id', 'email')
 
 class DetectionResultSerializer(serializers.ModelSerializer):
     class Meta:

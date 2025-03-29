@@ -13,7 +13,7 @@ class Detection(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"Detection for {self.user.username}"
+        return f"Detection for {self.user.email}"
 
 class DetectionResult(models.Model):
     detection = models.OneToOneField(Detection, on_delete=models.CASCADE, related_name='result')

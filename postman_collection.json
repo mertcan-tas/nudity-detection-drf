@@ -1,0 +1,348 @@
+{
+	"info": {
+		"_postman_id": "fc2685d9-8d74-4bb3-8dc9-8b519bc3620b",
+		"name": "Nudity Detection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40398866"
+	},
+	"item": [
+		{
+			"name": "App",
+			"item": [
+				{
+					"name": "Detect Nudity",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQzNjM4MjY2LCJpYXQiOjE3NDMyMDYyNjYsImp0aSI6Ijc5NDJkYTU5MzUyNzQ5MGM4NTA5YzdhNTdiODJmNWRmIiwidXNlcl9pZCI6IjE5MzM4MTU5NTcifQ.l15s7VRlp2sHzHP1_nKkSlMLaKcQRn2muJC6tRyBwj4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image_url",
+									"value": "https://www.gigbi.com/cdn/image/category/710/portre-fotografcisi.jpg",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base}}api/app/detect/",
+							"host": [
+								"{{base}}api"
+							],
+							"path": [
+								"app",
+								"detect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Task Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/api/app/task/254f8e35-0c04-429e-9828-d20b02a8cbd0/",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"api",
+								"app",
+								"task",
+								"254f8e35-0c04-429e-9828-d20b02a8cbd0",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detection Results",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}api/app/results/",
+							"host": [
+								"{{base}}api"
+							],
+							"path": [
+								"app",
+								"results",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Result Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}api/app/results/1",
+							"host": [
+								"{{base}}api"
+							],
+							"path": [
+								"app",
+								"results",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQzNjM4MjY2LCJpYXQiOjE3NDMyMDYyNjYsImp0aSI6Ijc5NDJkYTU5MzUyNzQ5MGM4NTA5YzdhNTdiODJmNWRmIiwidXNlcl9pZCI6IjE5MzM4MTU5NTcifQ.l15s7VRlp2sHzHP1_nKkSlMLaKcQRn2muJC6tRyBwj4",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "admin@admin.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base}}/api/auth/login/",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "john.doe@outlook.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Password_0X.",
+									"type": "text"
+								},
+								{
+									"key": "password2",
+									"value": "Password_0X.",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base}}/api/auth/register/",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "old_password",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "new_password",
+									"value": "Password_1E.",
+									"type": "text"
+								},
+								{
+									"key": "confirm_password",
+									"value": "Password_1E.",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base}}/api/auth/change-password/",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"change-password",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Testing",
+			"item": [
+				{
+					"name": "Session Testing",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/testing/auth/session",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"testing",
+								"auth",
+								"session"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test Auth Login",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/testing/auth/api/",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"testing",
+								"auth",
+								"api",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base",
+			"value": "http://127.0.0.1:8000/",
+			"type": "string"
+		}
+	]
+}
