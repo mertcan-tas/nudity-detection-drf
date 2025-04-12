@@ -26,23 +26,10 @@ cd nudity-detection-drf
 ```
 
 
-2. Set up your environment variables (`.env` file):
+2. Run the script to generate the .env file:
 
 ```
-SECRET_KEY=""
-
-DEBUG=True
-ALLOWED_HOSTS=*
-CORS_ALLOWED_ORIGINS=http://localhost:8000
-
-DJANGO_ADMIN_NAME=John
-DJANGO_ADMIN_SURNAME=Doe
-DJANGO_ADMIN_USERNAME=admin
-DJANGO_ADMIN_USER_MAIL=admin@admin.com
-DJANGO_ADMIN_USER_PASWORD=admin
-
-REDIS_HOST=redis
-REDIS_PORT=6379
+python genenv.py .env-copy > .env
 ```
 
 3. Running the Project
